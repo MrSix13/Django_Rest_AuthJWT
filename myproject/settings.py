@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from decouple import config
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,16 +76,29 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": config("NAME"),
+#         "USER": config("USER"),
+#         "PASSWORD": config("PASSWORD"),
+#         "HOST": config("HOST"),
+#         "PORT": config("PORT"),
+#     }
+# }
+
 DATABASES = {
-    'default': {
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("NAME"),
-        "USER": config("USER"),
-        "PASSWORD": config("PASSWORD"),
-        "HOST": config("HOST"),
-        "PORT": config("PORT"),
+        "NAME": os.environ.get("PG_DB"),
+        "USER": os.environ.get("PG_USER"),
+        "PASSWORD": os.environ.get("PG_PASSWORD"),
+        "HOST": 'db',
+        "PORT": '5432',
     }
 }
+
+
 
 
 # Password validation
